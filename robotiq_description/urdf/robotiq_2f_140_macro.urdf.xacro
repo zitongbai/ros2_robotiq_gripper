@@ -5,6 +5,7 @@
         prefix
         parent
         *origin
+        sim_gazebo:=false
         sim_ignition:=false
         sim_isaac:=false
         isaac_joint_commands:=/isaac_joint_commands
@@ -20,6 +21,7 @@
         <xacro:if value="${include_ros2_control}">
             <xacro:robotiq_gripper_ros2_control
                 name="${name}" prefix="${prefix}"
+                sim_gazebo="${sim_gazebo}"
                 sim_ignition="${sim_ignition}"
                 sim_isaac="${sim_isaac}"
                 isaac_joint_commands="${isaac_joint_commands}"
@@ -71,5 +73,35 @@
       <xacro:finger_links prefix="${prefix}" fingerprefix="right" stroke="140"/>
       <xacro:finger_joint prefix="${prefix}"/>
       <xacro:right_outer_knuckle_joint prefix="${prefix}"/>
+
+      <!-- fix "_mimic" joint interface name suffix causes Moveit2 "Joint not found" Error -->
+      <!-- https://github.com/ros-controls/gazebo_ros2_control/issues/173 -->
+      <link name="${prefix}dummy_child1"/>
+      <link name="${prefix}dummy_child2"/>
+      <link name="${prefix}dummy_child3"/>
+      <link name="${prefix}dummy_child4"/>
+      <link name="${prefix}dummy_child5"/>
+
+      <joint name="${prefix}left_inner_knuckle_joint_mimic" type="fixed">
+        <parent link="${prefix}robotiq_140_base_link" />
+        <child link="${prefix}dummy_child1" />
+      </joint>
+      <joint name="${prefix}left_inner_finger_joint_mimic" type="fixed">
+        <parent link="${prefix}robotiq_140_base_link" />
+        <child link="${prefix}dummy_child2" />
+      </joint>
+      <joint name="${prefix}right_outer_knuckle_joint_mimic" type="fixed">
+        <parent link="${prefix}robotiq_140_base_link" />
+        <child link="${prefix}dummy_child3" />
+      </joint>
+      <joint name="${prefix}right_inner_knuckle_joint_mimic" type="fixed">
+        <parent link="${prefix}robotiq_140_base_link" />
+        <child link="${prefix}dummy_child4" />
+      </joint>
+      <joint name="${prefix}right_inner_finger_joint_mimic" type="fixed">
+        <parent link="${prefix}robotiq_140_base_link" />
+        <child link="${prefix}dummy_child5" />
+      </joint>
+
     </xacro:macro>
 </robot>
