@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="robotiq_gripper">
+    <!-- parameters -->
+    <xacro:arg name="prefix" default="" />
+    <xacro:arg name="description_package" default="robotiq_description" />
+    <xacro:arg name="controller_file" default="robotiq_controllers.yaml" />
+
+    <xacro:property name="description_package" value="$(arg description_package)"/>
+
+    <!-- Import macros -->
+    <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
+
+    <link name="world" />
+    <xacro:robotiq_gripper name="Robotiq_2f_85_Gripper_Gazebo" 
+        prefix="$(arg prefix)" 
+        parent="world" 
+        sim_gazebo="true">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:robotiq_gripper>
+
+    <gazebo>
+        <gazebo reference="world">
+        </gazebo>
+
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros2_control.so">
+            <parameters>$(find ${description_package})/config/$(arg controller_file)</parameters>
+        </plugin>
+    </gazebo>
+
+</robot>

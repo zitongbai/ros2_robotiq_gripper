@@ -32,7 +32,7 @@
                     <param name="fake_sensor_commands">${fake_sensor_commands}</param>
                     <param name="state_following_offset">0.0</param>
                 </xacro:if>
-                <xacro:unless value="${use_fake_hardware or sim_ignition or sim_isaac}">
+                <xacro:unless value="${use_fake_hardware or sim_ignition or sim_isaac or sim_gazebo}">
                     <plugin>robotiq_driver/RobotiqGripperHardwareInterface</plugin>
                     <param name="gripper_closed_position">0.695</param>
                     <param name="COM_port">${com_port}</param>

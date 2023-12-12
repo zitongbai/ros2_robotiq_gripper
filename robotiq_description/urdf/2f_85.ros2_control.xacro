@@ -37,7 +37,7 @@
                     <param name="fake_sensor_commands">${fake_sensor_commands}</param>
                     <param name="state_following_offset">0.0</param>
                 </xacro:if>
-                <xacro:unless value="${use_fake_hardware or sim_ignition or sim_isaac}">
+                <xacro:unless value="${use_fake_hardware or sim_ignition or sim_isaac or sim_gazebo}">
                     <plugin>robotiq_driver/RobotiqGripperHardwareInterface</plugin>
                     <param name="gripper_closed_position">0.7929</param>
                     <param name="COM_port">${com_port}</param>
@@ -51,7 +51,7 @@
             <joint name="${prefix}robotiq_85_left_knuckle_joint">
                 <command_interface name="position" />
                 <state_interface name="position">
-                    <param name="initial_value">0.7929</param>
+                    <param name="initial_value">0.0</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>

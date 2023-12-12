@@ -15,6 +15,7 @@ install(
     meshes
     rviz
     urdf
+    gazebo
   DESTINATION
     share/${PROJECT_NAME}
 )
