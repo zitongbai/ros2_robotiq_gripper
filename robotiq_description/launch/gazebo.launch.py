@@ -123,7 +123,7 @@ def generate_launch_description():
                     'launch', 'gazebo.launch.py']
             )]
         ),
-        launch_arguments={'verbose': 'true', 'world': gazebo_world_file}.items(),
+        launch_arguments={'verbose': 'false', 'world': gazebo_world_file}.items(),
     )
 
     spawn_entity = Node(
@@ -157,12 +157,12 @@ def generate_launch_description():
                    [namespace, 'controller_manager']],
     )
 
-    robotiq_activation_controller_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        arguments=['robotiq_activation_controller', '--controller-manager',
-                   [namespace, 'controller_manager']],
-    )
+    # robotiq_activation_controller_spawner = Node(
+    #     package='controller_manager',
+    #     executable='spawner',
+    #     arguments=['robotiq_activation_controller', '--controller-manager',
+    #                [namespace, 'controller_manager']],
+    # )
 
     # Delay `joint_state_broadcaster` after spawn_entity
     delay_joint_state_broadcaster_spawner_after_spawn_entity = RegisterEventHandler(
@@ -195,7 +195,7 @@ def generate_launch_description():
         robot_state_pub_node,
         delay_joint_state_broadcaster_spawner_after_spawn_entity,
         delay_rviz_after_joint_state_broadcaster_spawner,
-        robotiq_activation_controller_spawner,
+        # robotiq_activation_controller_spawner,
         robotiq_gripper_controller_spawner, # use this instead of `delay_robot_controller_spawner_after_joint_state_broadcaster_spawner`, 
                                             # we can set initial position of gripper in 2f_85.ros2_control.xacro
     ]
