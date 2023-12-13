@@ -1,13 +1,21 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="robotiq_gripper">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="robotiq_2f_85_gripper">
     <!-- parameters -->
     <xacro:arg name="use_fake_hardware" default="true" />
+    <xacro:arg name="sim_gazebo" default="false"/>
+    <xacro:arg name="prefix" default="" />
 
     <!-- Import macros -->
     <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro" />
 
     <link name="world" />
-    <xacro:robotiq_gripper name="RobotiqGripperHardwareInterface" prefix="" parent="world" use_fake_hardware="$(arg use_fake_hardware)">
-        <origin xyz="0 0 0" rpy="0 0 0" />
-    </xacro:robotiq_gripper>
+
+    <xacro:robotiq_2f_85_gripper name="RobotiqGripperHardwareInterface" 
+        prefix="$(arg prefix)" 
+        parent="world" 
+        use_fake_hardware="$(arg use_fake_hardware)"
+        sim_gazebo="$(arg sim_gazebo)">
+        <origin xyz="0 0 0.3" rpy="0 0 0" />
+    </xacro:robotiq_2f_85_gripper>
+
 </robot>

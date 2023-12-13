@@ -7,6 +7,23 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(control_msgs REQUIRED)
+
+# add executable
+add_executable(test_grpper src/test_grpper.cpp)
+ament_target_dependencies(
+  test_grpper
+  rclcpp rclcpp_action control_msgs
+)
+
+install(
+  TARGETS
+    test_grpper
+  DESTINATION
+    lib/${PROJECT_NAME}
+)
 
 install(
   DIRECTORY
@@ -16,6 +33,8 @@ install(
     rviz
     urdf
     gazebo
+    srdf
+    src
   DESTINATION
     share/${PROJECT_NAME}
 )

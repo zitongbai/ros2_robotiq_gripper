@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="robotiq_gripper">
-    <xacro:macro name="robotiq_gripper" params="
+    <xacro:macro name="robotiq_2f_85_gripper" params="
         name
         prefix
         parent
@@ -325,9 +325,9 @@
             <child link="${prefix}dummy_child5" />
         </joint>
         
-        <!-- grasp fix plugin for gazebo classic -->
         <xacro:if value="${sim_gazebo}">
             <gazebo>
+                <!-- grasp fix plugin for gazebo classic -->
                 <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
                     <arm>
                         <arm_name>${prefix}robotiq_85_gripper_arm</arm_name>
@@ -347,6 +347,10 @@
                     <disable_collisions_on_attach>false</disable_collisions_on_attach>
                     <contact_topic>__default_topic__</contact_topic>
                  </plugin>
+                 <!-- gazebo ros2 control plugin -->
+                 <plugin name="robotiq_2f_85_gazebo_ros_control" filename="libgazebo_ros2_control.so">
+                    <parameters>$(find robotiq_description)/config/robotiq_2f_85_controllers.yaml</parameters>
+                </plugin>
              </gazebo>
         </xacro:if>
 

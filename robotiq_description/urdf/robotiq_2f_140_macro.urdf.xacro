@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="robotiq_gripper">
-  <xacro:macro name="robotiq_gripper" params="
+  <xacro:macro name="robotiq_2f_140_gripper" params="
         name
         prefix
         parent

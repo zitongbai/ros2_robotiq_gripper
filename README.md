@@ -1,3 +1,37 @@
+# About this fork
+
+Add support for gazebo classic. 
+
+The modifications are: 
+
+* add ros2 control setup for gazebo
+* add grasp fix plugin
+* fix ["_mimic" joint interface name suffix causes Moveit2 "Joint not found" Error](https://github.com/ros-controls/gazebo_ros2_control/issues/173)
+* add moveit2 config
+* provide a launch file example to launch robotiq 2f 85 gripper in gazebo
+
+
+
+If you use prefix in robotiq, remember to change the move group name and joint name in those yaml files (files under `robotiq_description/config`)manually. 
+
+
+
+Test grasp action for robotiq_2f_85
+
+```shell
+ros2 run robotiq_description test_grpper --ros-args -p gripper_position:=0.5 -p use_sim_time:=true
+```
+
+
+
+
+
+
+
+------
+
+The following is from the original repo: 
+
 # ros2_robotiq_gripper
 
 This repository contains the ROS 2 driver, controller and description packages for working with a Robotiq Gripper.

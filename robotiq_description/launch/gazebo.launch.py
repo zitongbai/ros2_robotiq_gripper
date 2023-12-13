@@ -28,15 +28,8 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             'description_file',
-            default_value='robotiq_2f_85_gripper.gazebo.urdf.xacro',
+            default_value='robotiq_2f_85_gripper.urdf.xacro',
             description='Robotiq gripper description file.'
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            'controllers_file',
-            default_value='robotiq_controllers.yaml',
-            description='YAML file with the controllers configuration.',
         )
     )
     declared_arguments.append(
@@ -60,18 +53,25 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             'start_rviz',
-            default_value='true',
+            default_value='false',
             description='Start RViz2 automatically with this launch file.',
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            'use_moveit', 
+            default_value='true', 
+            description='Whether to use moveit2 or not.'
         )
     )
 
     # Initialize arguments
     description_package = LaunchConfiguration('description_package')
     description_file = LaunchConfiguration('description_file')
-    controllers_file = LaunchConfiguration('controllers_file')
     prefix = LaunchConfiguration('prefix')
     namespace = LaunchConfiguration('namespace')
     start_rviz = LaunchConfiguration('start_rviz')
+    use_moveit = LaunchConfiguration('use_moveit')
 
     # Get URDF via xacro
     robot_description_content = Command(
@@ -83,21 +83,34 @@ def generate_launch_description():
             'prefix:=', 
             prefix, 
             ' ', 
-            'description_package:=',
-            description_package,
+            'sim_gazebo:=',
+            'true',
             ' ',
-            'controllers_file:=',
-            controllers_file,
+            'use_fake_hardware:=',
+            'false',
             ' ',
         ]
     )
 
     robot_description = {'robot_description': robot_description_content}
 
-    # TODO: Moveit2 config
+    moveit_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            FindPackageShare(description_package), '/launch', '/moveit.launch.py'
+        ]), 
+        launch_arguments={
+            'description_package': description_package,
+            'description_file': description_file,
+            'prefix': prefix,
+            'namespace': namespace,
+            'start_rviz':start_rviz,
+            'use_sim': 'true',
+        }.items(),
+        condition=IfCondition(use_moveit),
+    )
 
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare(description_package), 'rviz', 'view_gazebo.rviz']
+        [FindPackageShare(description_package), 'rviz', 'robotiq_2f_85.rviz']
     )
     gazebo_world_file = PathJoinSubstitution(
         [FindPackageShare(description_package), 'gazebo', 'empty.world']
@@ -193,6 +206,7 @@ def generate_launch_description():
         gazebo,
         spawn_entity,
         robot_state_pub_node,
+        moveit_launch,
         delay_joint_state_broadcaster_spawner_after_spawn_entity,
         delay_rviz_after_joint_state_broadcaster_spawner,
         # robotiq_activation_controller_spawner,
