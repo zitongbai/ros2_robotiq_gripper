@@ -347,10 +347,6 @@
                     <disable_collisions_on_attach>false</disable_collisions_on_attach>
                     <contact_topic>__default_topic__</contact_topic>
                  </plugin>
-                 <!-- gazebo ros2 control plugin -->
-                 <plugin name="robotiq_2f_85_gazebo_ros_control" filename="libgazebo_ros2_control.so">
-                    <parameters>$(find robotiq_description)/config/robotiq_2f_85_controllers.yaml</parameters>
-                </plugin>
              </gazebo>
         </xacro:if>
 
