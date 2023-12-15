@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="robotiq_2f_85_gripper">
     <!-- parameters -->
-    <xacro:arg name="use_fake_hardware" default="true" />
+    <xacro:arg name="use_fake_hardware" default="false" />
     <xacro:arg name="sim_gazebo" default="false"/>
     <xacro:arg name="prefix" default="" />
 
