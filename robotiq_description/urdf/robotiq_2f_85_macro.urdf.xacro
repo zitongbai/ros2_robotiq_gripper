@@ -328,7 +328,7 @@
         <xacro:if value="${sim_gazebo}">
             <gazebo>
                 <!-- grasp fix plugin for gazebo classic -->
-                <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+                <plugin name="${prefix}gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
                     <arm>
                         <arm_name>${prefix}robotiq_85_gripper_arm</arm_name>
                         <palm_link>${prefix}${palm_link}</palm_link>
