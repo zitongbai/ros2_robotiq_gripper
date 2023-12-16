@@ -142,7 +142,7 @@ def generate_launch_description():
     spawn_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-topic', [namespace, 'robot_description'], '-entity', [namespace, 'robotiq_gripper']],
+        arguments=['-topic', [namespace, 'robot_description'], '-entity', [namespace, 'robotiq_2f_85_gripper']],
         output='screen',
     )
 
@@ -197,8 +197,8 @@ def generate_launch_description():
 
     nodes = [
         gazebo,
-        moveit_launch,
         spawn_entity,
+        moveit_launch,
         robot_state_pub_node,
         delay_joint_state_broadcaster_spawner_after_spawn_entity,
         delay_rviz_after_joint_state_broadcaster_spawner,

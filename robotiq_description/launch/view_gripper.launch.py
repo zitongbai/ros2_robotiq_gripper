@@ -70,7 +70,7 @@ def generate_launch_description():
         ]
     )
     robot_description_param = {
-        "robot_description": launch_ros.parameter_descriptions.ParameterValue(
+        "robot_description": launch_ros.descriptions.ParameterValue(
             robot_description_content, value_type=str
         )
     }

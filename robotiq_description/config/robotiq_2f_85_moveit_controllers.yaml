@@ -12,9 +12,9 @@
 
     moveit_simple_controller_manager:
       controller_names:
-        - robotiq_2f_85_gripper_controller
+        - robotiq_gripper_controller
 
-      robotiq_2f_85_gripper_controller:
+      robotiq_gripper_controller:
         action_ns: gripper_cmd
         type: GripperCommand
         default: true

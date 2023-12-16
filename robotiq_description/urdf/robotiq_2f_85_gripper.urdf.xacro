@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="robotiq_2f_85_gripper">
     <!-- parameters -->
-    <xacro:arg name="use_fake_hardware" default="false" />
     <xacro:arg name="sim_gazebo" default="false"/>
     <xacro:arg name="prefix" default="" />
 
@@ -13,7 +12,6 @@
     <xacro:robotiq_2f_85_gripper name="RobotiqGripperHardwareInterface" 
         prefix="$(arg prefix)" 
         parent="world" 
-        use_fake_hardware="$(arg use_fake_hardware)"
         sim_gazebo="$(arg sim_gazebo)">
         <origin xyz="0 0 0.3" rpy="0 0 0" />
     </xacro:robotiq_2f_85_gripper>
@@ -23,7 +21,7 @@
         </gazebo>
         <gazebo>
             <!-- gazebo ros2 control plugin -->
-            <plugin name="gazebo_ros_control" filename="libgazebo_ros2_control.so">
+            <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
                 <parameters>$(find robotiq_description)/config/robotiq_2f_85_controllers.yaml</parameters>
             </plugin>
         </gazebo>
